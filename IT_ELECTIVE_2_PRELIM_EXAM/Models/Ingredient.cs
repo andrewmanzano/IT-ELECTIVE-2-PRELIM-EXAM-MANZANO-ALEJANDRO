@@ -8,15 +8,39 @@ namespace IT_ELECTIVE_2_PRELIM_EXAM.Models;
 
 public class Ingredient
 {
-    public string Name { get; set; }
+    private string name;
+    private double quantity;
+    public string Name
+    {
+        get { return name; }
+        set
+        {
+            if (string.IsNullOrEmpty(value))
+            {
+                throw new ArgumentException("Name cannot be set to null or empty.");
+            }
+            name = value;
+        }
+    }
     public string Measure { get; set; }
-    public double Quantity { get; set; }
+    public double Quantity
+    {
+        get => quantity;
+        set
+        {
+            if (value < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(value), "Quanttity cannot be a negative number.");
+            }
+            quantity = value;
+        }
+    }
 
     public Ingredient()
     {
-        Name = "";
+        name = "Unknown";
         Measure = "";
-        Quantity = 0;
+        quantity = 0;
     }
 
     public Ingredient(string name, string measure, double quantity)
