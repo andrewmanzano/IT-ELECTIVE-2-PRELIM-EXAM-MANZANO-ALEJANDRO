@@ -51,6 +51,8 @@ public class Meal
         set { tags = value; }
     }
 
+    public int PrepTimeMinutes { get; internal set; }
+
     public Meal()
     {
         name = "";
