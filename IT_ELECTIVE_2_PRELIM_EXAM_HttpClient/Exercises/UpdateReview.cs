@@ -29,8 +29,7 @@ public static class UpdateReview
         HttpResponseMessage response = await client.PutAsync(url, content);
 
         // TODO: Assert status code is 200 OK
-        response.EnsureSuccessStatusCode(); // Throws if not 2xx, or use: if (response.StatusCode != System.Net.HttpStatusCode.OK) throw new Exception();
-
+        response.EnsureSuccessStatusCode();
         // TODO: Parse the response JSON
         string responseString = await response.Content.ReadAsStringAsync();
         using JsonDocument doc = JsonDocument.Parse(responseString);
