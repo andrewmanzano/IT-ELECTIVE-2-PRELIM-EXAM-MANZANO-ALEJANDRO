@@ -1,3 +1,6 @@
+using System.Text;
+using System.Text.Json;
+
 namespace IT_ELECTIVE_2_PRELIM_EXAM_HttpClient.Exercises;
 
 // EXERCISE 7: PUT Update Review
@@ -17,12 +20,28 @@ public static class UpdateReview
     public static async Task Run(System.Net.Http.HttpClient client)
     {
         // TODO: Create JSON string with id, title, body, and userId
-        // TODO: Create StringContent with the JSON and Content-Type "application/json"
-        // TODO: Send PUT request to https://jsonplaceholder.typicode.com/posts/1
-        // TODO: Assert status code is 200 OK
-        // TODO: Parse the response JSON
-        // TODO: Assert the title is "Updated Review"
+        string json = "{\"id\": 1, \"title\": \"Updated Review\", \"body\": \"Even better than before!\", \"userId\": 1}";
 
-        throw new NotImplementedException();
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+        // TODO: Send PUT request to https://jsonplaceholder.typicode.com/posts/1
+        string url = "https://jsonplaceholder.typicode.com/posts/1";
+        HttpResponseMessage response = await client.PutAsync(url, content);
+
+        // TODO: Assert status code is 200 OK
+        response.EnsureSuccessStatusCode(); // Throws if not 2xx, or use: if (response.StatusCode != System.Net.HttpStatusCode.OK) throw new Exception();
+
+        // TODO: Parse the response JSON
+        string responseString = await response.Content.ReadAsStringAsync();
+        using JsonDocument doc = JsonDocument.Parse(responseString);
+        string returnedTitle = doc.RootElement.GetProperty("title").GetString();
+
+        // TODO: Assert the title is "Updated Review"
+        if (returnedTitle != "Updated Review")
+        {
+            throw new Exception($"Assertion failed! Expected 'Updated Review' but got '{returnedTitle}'");
+        }
+
+        Console.WriteLine("Exercise 7 passed successfully!");
     }
 }
