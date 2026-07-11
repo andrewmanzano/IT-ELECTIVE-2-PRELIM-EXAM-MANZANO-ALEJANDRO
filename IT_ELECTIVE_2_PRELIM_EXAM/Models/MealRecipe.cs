@@ -44,4 +44,11 @@ public class MealRecipe : RecipeBase //, IRecipeSearchable  <-- EXERCISE 9: Unco
     // EXERCISE 9: Implement IRecipeSearchable interface methods here
     // public string SearchCriteria => ???
     // public bool MatchesSearch(string searchTerm) => ???
+    public string SearchCriteria => Title;
+
+    public bool MatchesSearch(String searchTerm)
+    {
+        if (string.IsNullOrEmpty(searchTerm)) return false;
+        return Title.Contains(searchTerm, StringComparison.OrdinalIgnoreCase);
+    }
 }
