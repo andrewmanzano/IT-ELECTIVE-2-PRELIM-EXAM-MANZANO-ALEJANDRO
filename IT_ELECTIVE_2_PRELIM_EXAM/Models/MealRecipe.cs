@@ -28,6 +28,8 @@ public class MealRecipe : RecipeBase //, IRecipeSearchable  <-- EXERCISE 9: Unco
     public MealRecipe(string title, int prepTime, string difficulty)
         : base(title, prepTime, difficulty)
     {
+        Category = title;
+        Area = Area;
     }
 
     // EXERCISE 7: Create a constructor that also accepts category and area
@@ -36,7 +38,7 @@ public class MealRecipe : RecipeBase //, IRecipeSearchable  <-- EXERCISE 9: Unco
     public override string GetRecipeInfo()
     {
         // EXERCISE 7: Override to include Category and Area in the output
-        return base.GetRecipeInfo();
+        return $"{base.GetRecipeInfo()} | Category: {Category} | Area: {Area}";
     }
 
     // EXERCISE 9: Implement IRecipeSearchable interface methods here
